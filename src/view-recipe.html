@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe App</title>
+    <link href="output.css" rel="stylesheet" />
+  </head>
+  <body class="min-h-screen bg-slate-50">
+    <header>
+      <h2 class="text-2xl font-bold text-center mt-5">Recipe App</h2>
+    </header>
+    <div class="max-w-3xl mx-auto mt-3 p-6 bg-white rounded-lg shadow-md">
+      <div class="flex items-center gap-x-4 mb-4">
+        <input
+          type="search"
+          placeholder="Search Recipe..."
+          class="border rounded-md w-80 px-2 py-2"
+        />
+        <form action="add-recipe.html" target="_blank">
+          <button
+            type="submit"
+            class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 ml-55"
+          >
+            Add New Recipe
+          </button>
+        </form>
+      </div>
+
+      <table>
+        <thead>
+          <tr class="bg-gray-100">
+            <th class="border px-4 py-2 w-20">ID</th>
+            <th class="border px-4 py-2 w-40">Recipe Name</th>
+            <th class="border px-4 py-2 w-40">Type</th>
+            <th class="border px-4 py-2 w-40">Description</th>
+            <th class="border px-4 py-2 w-40">Edit</th>
+            <th class="border px-4 py-2 w-40">Delete</th>
+          </tr>
+        </thead>
+        <tbody id="data-output"></tbody>
+      </table>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
