@@ -44,6 +44,6 @@ function addRecipe(event) {
 
     recipes.push(newRecipe);
     localStorage.setItem("recipes", JSON.stringify(recipes));
-    window.location.href = "index.html";
+    window.location.href = "view-recipe.html";
 }
 
