@@ -1,24 +1,22 @@
-
 let recipes = JSON.parse(localStorage.getItem("recipes")) || [];
 
-let placeholder = document.querySelector('#data-output');
+let placeholder = document.querySelector("#data-output");
 let out = "";
 
-
 recipes.forEach((recipe, index) => {
-    out += `
+  out += `
     <tr class="border-b">
-        <td class="border px-4 py-2">${index}</td>
+        <td class="border px-4 py-2">${recipe.id}</td>
         <td class="border px-4 py-2">${recipe.name}</td>
         <td class="border px-4 py-2">${recipe.type}</td>
         <td class="border px-4 py-2">${recipe.description}</td>
         <td class="border px-4 py-2">
-            <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+            <button onclick="editRecipe(${recipe.id})" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                 Edit
             </button>
         </td>
         <td class="border px-4 py-2">
-            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+            <button onclick="deleteRecipe(${recipe.id})" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                 Delete
             </button>
         </td>
@@ -29,21 +27,160 @@ recipes.forEach((recipe, index) => {
 placeholder.innerHTML = out;
 
 function addRecipe(event) {
-    event.preventDefault();
+  event.preventDefault();
 
-    
-    let name = document.getElementById('name').value;
-    let type = document.getElementById('type').value;
-    let description = document.getElementById('description').value;
+  let id = document.getElementById("id").value;
+  let name = document.getElementById("name").value;
+  let type = document.getElementById("type").value;
+  let description = document.getElementById("description").value;
+  // if(!id.match(/[0-9]/)){
+  //     alert("Please enter only Numeric characters for ID");
+  //     return;
+  // }
 
-    let newRecipe = {
-        name: name,
-        type: type,
-        description: description
-    };
+  if (!name.match(/[A-Za-z]/)) {
+    alert("Please enter only alphabetic characters for Name");
+    return;
+  } else if (!type.match(/[A-Za-z]/)) {
+    alert("Please enter only alphabetic characters for Type");
+    return;
+  } else if (!description.match(/[A-Za-z]/)) {
+    alert("Please enter only alphabetic characters for Description");
+    return;
+  }
 
-    recipes.push(newRecipe);
-    localStorage.setItem("recipes", JSON.stringify(recipes));
-    window.location.href = "view-recipe.html";
+  let newRecipe = {
+    id: recipes.length+1,
+    name: name,
+    type: type,
+    description: description,
+  };
+
+  recipes.push(newRecipe);
+  localStorage.setItem("recipes", JSON.stringify(recipes));
+  window.location.href = "view-recipe.html";
 }
 
+function deleteRecipe(id) {
+  let recipes = JSON.parse(localStorage.getItem("recipes"));
+  let n_recipe = recipes.filter((val) => {
+    return val.id != id;
+  });
+
+  localStorage.setItem("recipes", JSON.stringify(n_recipe));
+  window.location.reload();
+}
+function SearchItem() {
+  const searchquery = document
+    .getElementById("searchkey")
+    .value.trim()
+    .toLowerCase();
+
+  let out = "";
+
+  if (searchquery === "") {
+    recipes.forEach((recipe) => {
+      out += `
+        <tr class="border-b">
+            <td class="border px-4 py-2">${recipe.id}</td>
+            <td class="border px-4 py-2">${recipe.name}</td>
+            <td class="border px-4 py-2">${recipe.type}</td>
+            <td class="border px-4 py-2">${recipe.description}</td>
+            <td class="border px-4 py-2">
+                <button onclick="editRecipe(${recipe.id})" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                    Edit
+                </button>
+            </td>
+            <td class="border px-4 py-2">
+                <button onclick="deleteRecipe(${recipe.id})" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                    Delete
+                </button>
+            </td>
+        </tr>
+      `;
+    });
+  } else {
+    recipes
+      .filter((recipe) => {
+        return (
+          recipe.name.toLowerCase().includes(searchquery) ||
+          recipe.type.toLowerCase().includes(searchquery) ||
+          recipe.description.toLowerCase().includes(searchquery)
+        );
+      })
+      .forEach((recipe) => {
+        out += `
+          <tr class="border-b">
+              <td class="border px-4 py-2">${recipe.id}</td>
+              <td class="border px-4 py-2">${recipe.name}</td>
+              <td class="border px-4 py-2">${recipe.type}</td>
+              <td class="border px-4 py-2">${recipe.description}</td>
+              <td class="border px-4 py-2">
+                  <button onclick="editRecipe(${recipe.id})" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                      Edit
+                  </button>
+              </td>
+              <td class="border px-4 py-2">
+                  <button onclick="deleteRecipe(${recipe.id})" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                      Delete
+                  </button>
+              </td>
+          </tr>
+        `;
+      });
+  }
+
+  placeholder.innerHTML = out;
+}
+
+function editRecipe(id) {
+  window.location.href = `update-recipe.html?id=${id}`;
+}
+
+function loadRecipe() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+
+  let recipes = JSON.parse(localStorage.getItem("recipes")) || [];
+  let recipe = recipes.find((r) => r.id == id);
+
+  document.getElementById("id").value = recipe.id;
+  document.getElementById("name").value = recipe.name;
+  document.getElementById("type").value = recipe.type;
+  document.getElementById("description").value = recipe.description;
+}
+updateRecipe();
+function updateRecipe(event) {
+  event.preventDefault();
+
+  let id = document.getElementById("id").value;
+  let name = document.getElementById("name").value;
+  let type = document.getElementById("type").value;
+  let description = document.getElementById("description").value;
+
+  if (!name.match(/[A-Za-z]/)) {
+    alert("Please enter only alphabetic characters for Name");
+    return;
+  } else if (!type.match(/[A-Za-z]/)) {
+    alert("Please enter only alphabetic characters for Type");
+    return;
+  } else if (!description.match(/[A-Za-z]/)) {
+    alert("Please enter only alphabetic characters for Description");
+    return;
+  }
+
+  let recipes = JSON.parse(localStorage.getItem("recipes")) || [];
+
+  let index = recipes.findIndex((r) => r.id == id);
+
+  
+    recipes[index] = {
+      id: parseInt(id),
+      name: name,
+      type: type,
+      description: description,
+    };
+
+    localStorage.setItem("recipes", JSON.stringify(recipes));
+    window.location.href = "view-recipe.html";
+  } 

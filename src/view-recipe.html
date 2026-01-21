@@ -6,40 +6,56 @@
     <title>Recipe App</title>
     <link href="main.css" rel="stylesheet" />
   </head>
-  <body class="min-h-screen bg-slate-50">
-    <header>
-      <h2 class="text-2xl font-bold text-center mt-5">Recipe App</h2>
-    </header>
-    <div class="max-w-3xl mx-auto mt-3 p-6 bg-white rounded-lg shadow-md">
-      <div class="flex items-center gap-x-4 mb-4">
-        <input
-          type="search"
-          placeholder="Search Recipe..."
-          class="border rounded-md w-80 px-2 py-2"
-        />
-        <form action="add-recipe.html" target="_blank">
-          <button
-            type="submit"
-            class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 ml-55"
-          >
-            Add New Recipe
-          </button>
-        </form>
-      </div>
 
-      <table>
-        <thead>
-          <tr class="bg-gray-100">
-            <th class="border px-4 py-2 w-20">ID</th>
-            <th class="border px-4 py-2 w-40">Recipe Name</th>
-            <th class="border px-4 py-2 w-40">Type</th>
-            <th class="border px-4 py-2 w-40">Description</th>
-            <th class="border px-4 py-2 w-40">Edit</th>
-            <th class="border px-4 py-2 w-40">Delete</th>
-          </tr>
-        </thead>
-        <tbody id="data-output"></tbody>
-      </table>
+  <body onload="loadRecipe()" class="min-h-screen bg-slate-100">
+   
+    <header class="w-full py-6">
+      <h2 class="text-2xl font-bold text-center">Recipe App</h2>
+    </header>
+
+  
+    <div class="w-full px-4">
+      <div
+        class="max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-md"
+      >
+
+        <div
+          class="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center mb-6"
+        >
+          <input
+            type="search"
+            id="searchkey"
+            placeholder="Search Recipe..."
+            class="border rounded-md w-full px-3 py-2"
+            onchange="SearchItem()"
+          />
+
+          <form action="add-recipe.html" class="sm:w-auto w-full">
+            <button
+              type="submit"
+              class="w-full sm:w-auto bg-blue-500 text-white px-5 py-2 rounded-md hover:bg-blue-600"
+            >
+              Add New Recipe
+            </button>
+          </form>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full border-collapse min-w-200">
+            <thead>
+              <tr class="bg-gray-100 text-left">
+                <th class="border px-3 py-2">ID</th>
+                <th class="border px-4 py-2">Recipe Name</th>
+                <th class="border px-4 py-2">Type</th>
+                <th class="border px-4 py-2">Description</th>
+                <th class="border px-4 py-2">Edit</th>
+                <th class="border px-4 py-2">Delete</th>
+              </tr>
+            </thead>
+            <tbody id="data-output"></tbody>
+          </table>
+        </div>
+      </div>
     </div>
 
     <script src="global.js"></script>
