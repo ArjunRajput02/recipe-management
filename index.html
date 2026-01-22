@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe App</title>
+    <link href="css/main.css" rel="stylesheet" />
+  </head>
+  <!--Body Structure-->
+  <body class="min-h-screen bg-slate-100">
+    <!--Header-->
+    <header class="w-full py-6">
+      <h2 class="text-2xl font-bold text-center">Recipe App</h2>
+    </header>
+
+    <div class="w-full px-4">
+      <div class="max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-md">
+        <!--Search Recipe and Add New Recipe Button-->
+        <div
+          class="flex flex-col w-full justify-between sm:flex-row gap-4 items-stretch mb-6"
+        >
+          <input
+            type="search"
+            id="searchkey"
+            placeholder="Search Recipe..."
+            class="border rounded-md px-3 py-2"
+            oninput="SearchItem()"
+          />
+
+          <form action="add-recipe.html">
+            <button
+              type="submit"
+              class="w-full sm:w-auto bg-blue-500 text-white px-5 py-2 rounded-md hover:bg-blue-600"
+            >
+              Add New Recipe
+            </button>
+          </form>
+        </div>
+        <!--View Table-->
+        <div class="overflow-x-auto">
+          <table class="w-full border-collapse min-w-200">
+            <thead>
+              <tr class="bg-gray-100 text-left">
+                <th class="border px-3 py-2">ID</th>
+                <th class="border px-4 py-2">Recipe Name</th>
+                <th class="border px-4 py-2">Type</th>
+                <th class="border px-4 py-2">Description</th>
+                <th class="border px-4 py-2">Edit</th>
+                <th class="border px-4 py-2">Delete</th>
+              </tr>
+            </thead>
+            <tbody id="data-output"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!--External JS File-->
+    <script src="javascript/global.js"></script>
+  </body>
+</html>
