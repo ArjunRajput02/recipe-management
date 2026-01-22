@@ -2,10 +2,10 @@
 let recipes = JSON.parse(localStorage.getItem("recipes")) || [];
 
 let recipeContainer = document.querySelector("#data-output");
-let reteiveRecipe = "";
+let retrieveRecipe = "";
 
 recipes.forEach((recipe) => {
-  reteiveRecipe += `
+  retrieveRecipe += `
     <tr class="border-b">
         <td class="border px-4 py-2">${recipe.id}</td>
         <td class="border px-4 py-2">${recipe.name}</td>
@@ -25,7 +25,7 @@ recipes.forEach((recipe) => {
     `;
 });
 if (recipeContainer) {
-  recipeContainer.innerHTML = reteiveRecipe;
+  recipeContainer.innerHTML = retrieveRecipe;
 }
 
 //Function for Add Recipe
@@ -46,12 +46,15 @@ function addRecipe(event) {
     alert("Please enter only alphabetic characters for Description");
     return;
   }
-  let NextRecipeid = JSON.parse(localStorage.getItem("id"));
-  if (!NextRecipeid) {
-    NextRecipeid = 0;
+  let recipes = JSON.parse(localStorage.getItem("recipes")) || [];
+
+  let nextId = 1;
+  if (recipes.length > 0) {
+    nextId = recipes[recipes.length - 1].id + 1;
   }
+
   let newRecipe = {
-    id: NextRecipeid + 1,
+    id: nextId,
     name: name,
     type: type,
     description: description,
@@ -59,7 +62,6 @@ function addRecipe(event) {
 
   recipes.push(newRecipe);
   localStorage.setItem("recipes", JSON.stringify(recipes));
-  localStorage.setItem("id", ++NextRecipeid);
   window.location.href = "index.html";
 }
 
@@ -73,11 +75,11 @@ function confirmDelete(id) {
 //Function for delete Recipe
 function deleteRecipe(id) {
   let recipes = JSON.parse(localStorage.getItem("recipes"));
-  let recipeRemove = recipes.filter((val) => {
+  let recipeDelete = recipes.filter((val) => {
     return val.id != id;
   });
 
-  localStorage.setItem("recipes", JSON.stringify(recipeRemove));
+  localStorage.setItem("recipes", JSON.stringify(recipeDelete));
   window.location.reload();
 }
 
@@ -191,7 +193,7 @@ function updateRecipe(event) {
   let index = recipes.findIndex((r) => r.id == id);
 
   recipes[index] = {
-    id: parseInt(id),
+    id: id,
     name: name,
     type: type,
     description: description,
