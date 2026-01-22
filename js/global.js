@@ -46,9 +46,9 @@ function addRecipe(event) {
     alert("Please enter only alphabetic characters for Description");
     return;
   }
-  let Nextid = JSON.parse(localStorage.getItem("id"));
-  if (!Nextid) {
-    Nextid = 0;
+  let NextRecipeid = JSON.parse(localStorage.getItem("id"));
+  if (!NextRecipeid) {
+    NextRecipeid = 0;
   }
   let newRecipe = {
     id: Nextid + 1,
