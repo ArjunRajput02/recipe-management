@@ -1,3 +1,4 @@
+//Retrive Data from table
 let recipes = JSON.parse(localStorage.getItem("recipes")) || [];
 
 let placeholder = document.querySelector("#data-output");
@@ -23,9 +24,9 @@ recipes.forEach((recipe, index) => {
     </tr>
     `;
 });
-
 placeholder.innerHTML = out;
 
+//Function for Add Recipe
 function addRecipe(event) {
   event.preventDefault();
 
@@ -33,10 +34,6 @@ function addRecipe(event) {
   let name = document.getElementById("name").value;
   let type = document.getElementById("type").value;
   let description = document.getElementById("description").value;
-  // if(!id.match(/[0-9]/)){
-  //     alert("Please enter only Numeric characters for ID");
-  //     return;
-  // }
 
   if (!name.match(/[A-Za-z]/)) {
     alert("Please enter only alphabetic characters for Name");
@@ -50,7 +47,7 @@ function addRecipe(event) {
   }
 
   let newRecipe = {
-    id: recipes.length+1,
+    id: recipes.length + 1,
     name: name,
     type: type,
     description: description,
@@ -61,6 +58,7 @@ function addRecipe(event) {
   window.location.href = "view-recipe.html";
 }
 
+//Function for delete Recipe
 function deleteRecipe(id) {
   let recipes = JSON.parse(localStorage.getItem("recipes"));
   let n_recipe = recipes.filter((val) => {
@@ -70,6 +68,8 @@ function deleteRecipe(id) {
   localStorage.setItem("recipes", JSON.stringify(n_recipe));
   window.location.reload();
 }
+
+//Function for Search Recipe
 function SearchItem() {
   const searchquery = document
     .getElementById("searchkey")
@@ -133,10 +133,12 @@ function SearchItem() {
   placeholder.innerHTML = out;
 }
 
+//Function to Redirect Update Page
 function editRecipe(id) {
   window.location.href = `update-recipe.html?id=${id}`;
 }
 
+//Function to load data in Update layout
 function loadRecipe() {
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
@@ -149,7 +151,8 @@ function loadRecipe() {
   document.getElementById("type").value = recipe.type;
   document.getElementById("description").value = recipe.description;
 }
-updateRecipe();
+
+//Function to Update Recipe
 function updateRecipe(event) {
   event.preventDefault();
 
@@ -173,14 +176,13 @@ function updateRecipe(event) {
 
   let index = recipes.findIndex((r) => r.id == id);
 
-  
-    recipes[index] = {
-      id: parseInt(id),
-      name: name,
-      type: type,
-      description: description,
-    };
+  recipes[index] = {
+    id: parseInt(id),
+    name: name,
+    type: type,
+    description: description,
+  };
 
-    localStorage.setItem("recipes", JSON.stringify(recipes));
-    window.location.href = "view-recipe.html";
-  } 
+  localStorage.setItem("recipes", JSON.stringify(recipes));
+  window.location.href = "view-recipe.html";
+}
