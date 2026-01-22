@@ -51,7 +51,7 @@ function addRecipe(event) {
     NextRecipeid = 0;
   }
   let newRecipe = {
-    id: Nextid + 1,
+    id: NextRecipeid + 1,
     name: name,
     type: type,
     description: description,
@@ -59,7 +59,7 @@ function addRecipe(event) {
 
   recipes.push(newRecipe);
   localStorage.setItem("recipes", JSON.stringify(recipes));
-  localStorage.setItem("id", ++Nextid);
+  localStorage.setItem("id", ++NextRecipeid);
   window.location.href = "index.html";
 }
 
