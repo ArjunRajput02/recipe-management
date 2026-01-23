@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Recipe</title>
+    <link href="css/main.css" rel="stylesheet" />
+  </head>
+  <!--Body Structure-->
+  <body>
+    <div class="min-h-screen flex items-center justify-center bg-gray-100">
+      <div class="w-full m-10 md:w-1/2 p-8 sm:p-10 bg-amber-50">
+        <h2 class="text-xl font-semibold text-center text-indigo-800 mb-6">
+          Add New Recipe
+        </h2>
+        <!--Form To add Recipe-->
+        <form class="space-y-4" action="view-recipe.html">
+          <div class="flex flex-col gap-4">
+            <input
+              type="text"
+              id="name"
+              placeholder="Recipe Name"
+              class="w-full border rounded-md px-3 py-2"
+            />
+
+            <input
+              type="text"
+              id="type"
+              placeholder="Recipe Type"
+              class="w-full border rounded-md px-3 py-2"
+              required
+            />
+
+            <input
+              type="text"
+              id="description"
+              placeholder="Description"
+              class="w-full border rounded-md px-3 py-2"
+              required
+            />
+            <button
+              type="submit"
+              onclick="addRecipe(event)"
+              class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+            >
+              Add Recipe
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!--External JS File-->
+    <script src="js/global.js"></script>
+  </body>
+</html>
