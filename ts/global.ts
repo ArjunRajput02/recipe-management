@@ -43,13 +43,13 @@ function addRecipe(event: Event): void {
     document.getElementById("description") as HTMLInputElement
   ).value;
 
-  if (!/[A-Za-z]/.test(name)) {
+  if (!description.match(/[A-Za-z]/)) {
     alert("Please enter only alphabetic characters for Name");
     return;
-  } else if (!/[A-Za-z]/.test(type)) {
+  } else if (!description.match(/[A-Za-z]/)) {
     alert("Please enter only alphabetic characters for Type");
     return;
-  } else if (!/[A-Za-z]/.test(description)) {
+  } else if (!description.match(/[A-Za-z]/)) {
     alert("Please enter only alphabetic characters for Description");
     return;
   }

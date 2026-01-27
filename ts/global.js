@@ -12,15 +12,15 @@ function addRecipe(event) {
     var name = document.getElementById("name").value;
     var type = document.getElementById("type").value;
     var description = document.getElementById("description").value;
-    if (!/[A-Za-z]/.test(name)) {
+    if (!description.match(/[A-Za-z]/)) {
         alert("Please enter only alphabetic characters for Name");
         return;
     }
-    else if (!/[A-Za-z]/.test(type)) {
+    else if (!description.match(/[A-Za-z]/)) {
         alert("Please enter only alphabetic characters for Type");
         return;
     }
-    else if (!/[A-Za-z]/.test(description)) {
+    else if (!description.match(/[A-Za-z]/)) {
         alert("Please enter only alphabetic characters for Description");
         return;
     }
@@ -72,7 +72,6 @@ function SearchItem() {
     }
     recipeContainer.innerHTML = searchItem;
 }
-// Helper to generate table row
 function getRecipeRow(recipe) {
     return "\n    <tr class=\"border-b\">\n      <td class=\"border px-4 py-2\">".concat(recipe.id, "</td>\n      <td class=\"border px-4 py-2\">").concat(recipe.name, "</td>\n      <td class=\"border px-4 py-2\">").concat(recipe.type, "</td>\n      <td class=\"border px-4 py-2\">").concat(recipe.description, "</td>\n      <td class=\"border px-4 py-2\">\n        <button onclick=\"editRecipe(").concat(recipe.id, ")\"\n          class=\"bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded\">\n          Edit\n        </button>\n      </td>\n      <td class=\"border px-4 py-2\">\n        <button onclick=\"deleteRecipe(").concat(recipe.id, ")\"\n          class=\"bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded\">\n          Delete\n        </button>\n      </td>\n    </tr>\n  ");
 }
