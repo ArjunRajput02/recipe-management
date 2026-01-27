@@ -12,11 +12,11 @@ function addRecipe(event) {
     var name = document.getElementById("name").value;
     var type = document.getElementById("type").value;
     var description = document.getElementById("description").value;
-    if (!description.match(/[A-Za-z]/)) {
+    if (!name.match(/[A-Za-z]/)) {
         alert("Please enter only alphabetic characters for Name");
         return;
     }
-    else if (!description.match(/[A-Za-z]/)) {
+    else if (!type.match(/[A-Za-z]/)) {
         alert("Please enter only alphabetic characters for Type");
         return;
     }
