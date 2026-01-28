@@ -106,9 +106,9 @@ function SearchItem(): void {
     recipes
       .filter((recipe: Recipe) => {
         return (
-          recipe.name.toLowerCase().includes(searchquery) ||
-          recipe.type.toLowerCase().includes(searchquery) ||
-          recipe.description.toLowerCase().includes(searchquery)
+          recipe.name.toLowerCase().indexOf(searchquery) !== -1 ||
+          recipe.type.toLowerCase().indexOf(searchquery) !== -1 ||
+          recipe.description.toLowerCase().indexOf(searchquery) !== -1
         );
       })
       .forEach((recipe: Recipe) => {
@@ -149,7 +149,6 @@ function editRecipe(id: string | number): void {
 function loadRecipe(): void {
   const params = new URLSearchParams(window.location.search);
   const id = Number(params.get("id"));
-  console.log(typeof id);
 
   const recipes: Recipe[] = JSON.parse(localStorage.getItem("recipes") || "[]");
 
@@ -204,3 +203,4 @@ function updateRecipe(event: Event): void {
 }
 
 export {};
+
