@@ -4,6 +4,7 @@ type Recipe = {
   type: string;
   description: string;
 };
+//Retrive Recipe from Localstorage
 let recipes: Recipe[] = JSON.parse(localStorage.getItem("recipes") || "[]");
 
 let recipeContainer = document.querySelector("#data-output") as HTMLElement;
@@ -34,6 +35,7 @@ if (recipeContainer) {
   recipeContainer.innerHTML = retrieveRecipe;
 }
 
+//add recipe in localstorage
 function addRecipe(event: Event): void {
   event.preventDefault();
 
@@ -73,6 +75,7 @@ function addRecipe(event: Event): void {
   window.location.href = "index.html";
 }
 
+//Delete Recipe from localstorage
 function confirmDelete(id: number): void {
   if (confirm("Are you sure you want to delete this recipe?")) {
     deleteRecipe(id);
@@ -88,6 +91,7 @@ function deleteRecipe(id: number): void {
   window.location.reload();
 }
 
+//search recipe from localstorage
 function SearchItem(): void {
   const searchInput = document.getElementById("searchkey") as HTMLInputElement;
   const searchquery = searchInput.value.trim().toLowerCase();
@@ -137,29 +141,31 @@ function getRecipeRow(recipe: Recipe): string {
     </tr>
   `;
 }
-
+//Update Recipe from localstorage
 function editRecipe(id: string | number): void {
   window.location.href = `update-recipe.html?id=${id}`;
 }
 
 function loadRecipe(): void {
   const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
+  const id = Number(params.get("id"));
+  console.log(typeof id);
 
   const recipes: Recipe[] = JSON.parse(localStorage.getItem("recipes") || "[]");
 
   const recipe = recipes.find((r) => r.id == id);
-
-  (document.getElementById("name") as HTMLInputElement).value = recipe.name;
-  (document.getElementById("type") as HTMLInputElement).value = recipe.type;
-  (document.getElementById("description") as HTMLInputElement).value =
-    recipe.description;
+  if (recipe) {
+    (document.getElementById("name") as HTMLInputElement).value = recipe.name;
+    (document.getElementById("type") as HTMLInputElement).value = recipe.type;
+    (document.getElementById("description") as HTMLInputElement).value =
+      recipe.description;
+  }
 }
 function updateRecipe(event: Event): void {
   event.preventDefault();
 
   const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
+  const id = Number(params.get("id"));
 
   const nameInput = document.getElementById("name") as HTMLInputElement;
   const typeInput = document.getElementById("type") as HTMLInputElement;
@@ -196,3 +202,5 @@ function updateRecipe(event: Event): void {
   localStorage.setItem("recipes", JSON.stringify(recipes));
   window.location.href = "index.html";
 }
+
+export {};
